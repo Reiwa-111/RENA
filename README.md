@@ -193,7 +193,7 @@ Prepare the corpus and tokenizer:
 python RENA_RUNE.py prepare
 ```
 
-The preparation pipeline combines the source files, trains or loads the tokenizer and creates tokenized training and validation streams. The default validation configuration uses a seeded chunk-based split. Generated data, tokenizer files and other local artifacts are ignored by Git.
+The preparation pipeline combines the source files, trains or loads the tokenizer and creates tokenized training and validation streams. The default validation configuration uses a seeded chunk-based split. Generated corpus, tokenized training data and other local training artifacts are ignored by Git. The trained tokenizer vocabulary and BPE merges are included in [`data/rena_rune_tokenizer.json`](data/rena_rune_tokenizer.json) for reproducible inference.
 
 Check or retrain the tokenizer separately:
 
@@ -416,6 +416,8 @@ PUBLISHING.md                   # Public release checklist
 
 Local `data/`, `runs/`, checkpoints, tokenizer outputs, caches and temporary exports are excluded from the repository.
 
+The exception is [`data/rena_rune_tokenizer.json`](data/rena_rune_tokenizer.json), which contains the published tokenizer vocabulary and BPE merge rules required for inference.
+
 ---
 
 ## License and attribution
@@ -424,4 +426,4 @@ The source code in this repository is licensed under the Apache License 2.0; see
 
 The transcript dataset is separately attributed to [Deltarunefan on Hugging Face](https://huggingface.co/datasets/Deltarunefan/Deltarune-Complete-Transcript-Cleaned). Deltarune is a work by its respective rights holders. RENA-RUNE does not claim ownership of Deltarune, its characters, dialogue or transcript material.
 
-No transcript files, tokenized corpus, tokenizer artifacts, checkpoints or model weights are included in this source repository. The right to use or redistribute the underlying transcript material, and any dataset-derived tokenizer or model artifacts, is not established by the Apache-2.0 code license. Review the dataset card and applicable rights before using or distributing such materials.
+No transcript files, tokenized corpus, training checkpoints or model weights are included in this source repository. The tokenizer vocabulary and BPE merges are published as `data/rena_rune_tokenizer.json` for inference. The right to use or redistribute the underlying transcript material, and any dataset-derived tokenizer or model artifacts, is not established by the Apache-2.0 code license. Review the dataset card and applicable rights before using or distributing such materials.
