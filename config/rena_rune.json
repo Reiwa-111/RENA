@@ -1,0 +1,96 @@
+{
+  "project": {
+    "name": "RENA-RUNE",
+    "version": "0.1",
+    "seed": 42,
+    "profile": "DELTARUNE-MINI-GQA-SWIGLU-8K"
+  },
+  "model": {
+    "vocab_size": 8000,
+    "context_size": 256,
+    "d_model": 256,
+    "n_layers": 8,
+    "n_heads": 4,
+    "n_kv_heads": 2,
+    "head_dim": 64,
+    "norm": "rmsnorm",
+    "norm_eps": 1e-05,
+    "qk_norm": true,
+    "dropout": 0.01,
+    "bias": false,
+    "weight_tying": true,
+    "rope_theta": 10000.0,
+    "d_ff": 768
+  },
+  "attention": {
+    "pattern": "pure_gqa",
+    "gqa": {
+      "enabled": true,
+      "n_q": 4,
+      "n_kv": 2
+    }
+  },
+  "tokenizer": {
+    "type": "bpe_bytelevel",
+    "vocab_size": 8000,
+    "path": "data/rena_rune_tokenizer.json",
+    "special_tokens": ["<|pad|>", "<|bos|>", "<|eos|>"]
+  },
+  "data": {
+    "corpus_files": [
+      "data/chap1_cleaned.txt",
+      "data/chap2_cleaned.txt",
+      "data/chap3_cleaned.txt",
+      "data/chap4_cleaned.txt"
+    ],
+    "corpus_path": "data/corpus.txt",
+    "train_tokens": "data/train_tokens.bin",
+    "val_tokens": "data/val_tokens.bin",
+    "meta_path": "data/token_meta.json",
+    "val_fraction": 0.05,
+    "val_mode": "chunks",
+    "val_chunk_lines": 20,
+    "val_seed": 42,
+    "token_dtype": "uint16"
+  },
+  "training": {
+    "steps": 50000,
+    "micro_batch_size": 16,
+    "grad_accum": 1,
+    "learning_rate": 0.00015,
+    "min_lr": 0.000015,
+    "warmup_steps": 500,
+    "schedule_steps": 50000,
+    "lr_schedule": "cosine",
+    "betas": [0.9, 0.95],
+    "eps": 1e-08,
+    "grad_clip": 1.0,
+    "weight_decay": 0.01,
+    "validate_every": 250,
+    "save_every": 500,
+    "log_every": 25,
+    "sample_every": 500,
+    "val_batches": 20,
+    "early_stop_patience": 8,
+    "early_stop_min_delta": 0.001
+  },
+  "runtime": {
+    "device": "auto",
+    "threads": 12,
+    "amp": true,
+    "amp_dtype": "bfloat16",
+    "matmul_precision": "high",
+    "compile": false
+  },
+  "chat": {
+    "temperature": 0.85,
+    "top_k": 40,
+    "top_p": 0.95,
+    "max_new_tokens": 120,
+    "context_lines": 6,
+    "repetition_penalty": 1.1,
+    "no_repeat_ngram_size": 0,
+    "default_speaker": "Susie",
+    "default_user_speaker": "Kris"
+  }
+}

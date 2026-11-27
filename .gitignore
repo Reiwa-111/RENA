@@ -1,0 +1,26 @@
+# Python-generated caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local virtual environments
+.venv/
+venv/
+
+# Training outputs and checkpoints (publish selected exports via Releases)
+runs/
+release/
+*.pt
+*.safetensors
+data/
+
+# Editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+
+PUBLISHING.md
